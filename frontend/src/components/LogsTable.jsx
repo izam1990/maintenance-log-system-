@@ -15,6 +15,7 @@ const LogsTable = ({ logs, onEdit, onDelete, loading }) => {
       log.location.toLowerCase().includes(search) ||
       log.work_description.toLowerCase().includes(search) ||
       log.spare_parts.toLowerCase().includes(search) ||
+      log.total_time.toLowerCase().includes(search) ||
       log.technician_name.toLowerCase().includes(search) ||
       log.date.includes(search)
     );
@@ -58,6 +59,7 @@ const LogsTable = ({ logs, onEdit, onDelete, loading }) => {
                   <th className="py-3 px-4">Location</th>
                   <th className="py-3 px-4">Work Description</th>
                   <th className="py-3 px-4">Spare Parts</th>
+                  <th className="py-3 px-4">Total Time</th>
                   <th className="py-3 px-4">Technician</th>
                   <th className="py-3 px-4 text-center">Actions</th>
                 </tr>
@@ -83,6 +85,9 @@ const LogsTable = ({ logs, onEdit, onDelete, loading }) => {
                     </td>
                     <td className="py-3 px-4 align-middle" data-testid={`log-spare-parts-${log.id}`}>
                       {log.spare_parts}
+                    </td>
+                    <td className="py-3 px-4 align-middle" data-testid={`log-total-time-${log.id}`}>
+                      {log.total_time}
                     </td>
                     <td className="py-3 px-4 align-middle" data-testid={`log-technician-${log.id}`}>
                       {log.technician_name}

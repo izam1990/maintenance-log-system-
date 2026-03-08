@@ -17,6 +17,7 @@ const LogForm = ({ onSubmit, config, editingLog, onCancelEdit }) => {
     location: '',
     work_description: '',
     spare_parts: '',
+    total_time: '',
     technician_name: ''
   });
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -29,6 +30,7 @@ const LogForm = ({ onSubmit, config, editingLog, onCancelEdit }) => {
         location: editingLog.location,
         work_description: editingLog.work_description,
         spare_parts: editingLog.spare_parts,
+        total_time: editingLog.total_time,
         technician_name: editingLog.technician_name
       });
       setCalendarDate(new Date(editingLog.date));
@@ -45,6 +47,7 @@ const LogForm = ({ onSubmit, config, editingLog, onCancelEdit }) => {
         location: '',
         work_description: '',
         spare_parts: '',
+        total_time: '',
         technician_name: ''
       });
       setCalendarDate(new Date());
@@ -174,6 +177,21 @@ const LogForm = ({ onSubmit, config, editingLog, onCancelEdit }) => {
                 )}
               </SelectContent>
             </Select>
+          </div>
+
+          <div>
+            <Label htmlFor="total_time" className="text-xs font-bold uppercase tracking-widest text-zinc-600">
+              Total Time
+            </Label>
+            <Input
+              id="total_time"
+              value={formData.total_time}
+              onChange={(e) => setFormData({ ...formData, total_time: e.target.value })}
+              required
+              className="h-11 bg-white border-zinc-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-sm"
+              placeholder="e.g., 2 hours, 30 mins"
+              data-testid="total-time-input"
+            />
           </div>
 
           <div>

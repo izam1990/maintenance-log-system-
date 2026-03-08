@@ -31,6 +31,7 @@ class MaintenanceLog(BaseModel):
     location: str
     work_description: str
     spare_parts: str
+    total_time: Optional[str] = ""
     technician_name: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -41,6 +42,7 @@ class MaintenanceLogCreate(BaseModel):
     location: str
     work_description: str
     spare_parts: str
+    total_time: str
     technician_name: str
 
 
@@ -50,6 +52,7 @@ class MaintenanceLogUpdate(BaseModel):
     location: Optional[str] = None
     work_description: Optional[str] = None
     spare_parts: Optional[str] = None
+    total_time: Optional[str] = None
     technician_name: Optional[str] = None
 
 

@@ -50,6 +50,7 @@ const ExportSection = ({ logs }) => {
       'Location': log.location,
       'Work Description': log.work_description,
       'Spare Parts Used': log.spare_parts,
+      'Total Time': log.total_time,
       'Technician': log.technician_name
     }));
 
