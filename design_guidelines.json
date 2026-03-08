@@ -1,0 +1,144 @@
+{
+  "identity": {
+    "name": "E1",
+    "archetype": "The Performance Pro (Industrial Edition)",
+    "mission": "Create a high-contrast, tool-focused interface for maintenance professionals. Prioritize data clarity, rapid entry, and error prevention over decoration."
+  },
+  "typography": {
+    "fonts": {
+      "heading": {
+        "family": "Barlow Condensed, sans-serif",
+        "url": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&display=swap",
+        "weights": ["500", "600", "700"],
+        "usage": "Page titles, card headers, metric values. Use uppercase for labels."
+      },
+      "body": {
+        "family": "IBM Plex Sans, sans-serif",
+        "url": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap",
+        "weights": ["400", "500", "600"],
+        "usage": "Form inputs, table data, body text, buttons."
+      }
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-bold uppercase tracking-tight",
+      "h2": "text-2xl md:text-3xl font-semibold tracking-tight",
+      "h3": "text-xl font-medium",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm font-medium tracking-wide opacity-80",
+      "label": "text-xs font-bold uppercase tracking-widest text-muted-foreground"
+    }
+  },
+  "colors": {
+    "theme": "light",
+    "palette": {
+      "background": "#F4F4F5",
+      "foreground": "#0F172A",
+      "card": "#FFFFFF",
+      "card_foreground": "#0F172A",
+      "primary": "#0F172A",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#E4E4E7",
+      "secondary_foreground": "#18181B",
+      "muted": "#F4F4F5",
+      "muted_foreground": "#71717A",
+      "accent": "#F4F4F5",
+      "accent_foreground": "#0F172A",
+      "destructive": "#DC2626",
+      "destructive_foreground": "#FFFFFF",
+      "border": "#E4E4E7",
+      "input": "#E4E4E7",
+      "ring": "#0F172A"
+    },
+    "status": {
+      "success": "#16A34A",
+      "warning": "#D97706",
+      "error": "#DC2626",
+      "info": "#2563EB"
+    },
+    "custom": {
+      "industrial_blue": "#2563EB",
+      "safety_orange": "#F97316",
+      "slate_header": "#1E293B"
+    }
+  },
+  "layout": {
+    "grid_system": "Bento Grid (High Density)",
+    "container": "max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8",
+    "spacing": {
+      "section_gap": "gap-6",
+      "component_padding": "p-6",
+      "internal_gap": "gap-4"
+    },
+    "structure": {
+      "header": "Sticky top, h-16 bg-slate-900 text-white flex items-center px-6 shadow-md z-50",
+      "main": "min-h-[calc(100vh-4rem)] bg-zinc-100/50",
+      "dashboard_grid": "grid grid-cols-1 lg:grid-cols-12 gap-6",
+      "log_form_area": "lg:col-span-4 xl:col-span-3 h-fit sticky top-20",
+      "log_list_area": "lg:col-span-8 xl:col-span-9"
+    }
+  },
+  "components": {
+    "general_rules": "Use Shadcn/UI components. Customize for 'Industrial' feel: sharper corners (rounded-sm or rounded-md), distinct borders, high contrast inputs.",
+    "card": {
+      "style": "bg-white border border-zinc-200 shadow-sm rounded-md",
+      "header": "border-b border-zinc-100 p-4 bg-zinc-50/50"
+    },
+    "button": {
+      "primary": "bg-slate-900 hover:bg-slate-800 text-white shadow-sm font-medium rounded-sm h-10 px-6 uppercase tracking-wide text-sm",
+      "secondary": "bg-white border border-zinc-300 hover:bg-zinc-50 text-slate-900 shadow-sm font-medium rounded-sm h-10 px-6 uppercase tracking-wide text-sm",
+      "destructive": "bg-red-600 hover:bg-red-700 text-white shadow-sm font-medium rounded-sm h-10 px-6 uppercase tracking-wide text-sm"
+    },
+    "input": {
+      "style": "h-11 bg-white border-zinc-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-sm text-base placeholder:text-zinc-400"
+    },
+    "table": {
+      "style": "w-full text-sm text-left",
+      "header": "bg-zinc-100 text-zinc-600 uppercase text-xs font-bold tracking-wider py-3 px-4",
+      "row": "border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors",
+      "cell": "py-3 px-4 align-middle"
+    },
+    "badge": {
+      "base": "inline-flex items-center rounded-sm px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+      "variants": {
+        "default": "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+        "secondary": "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        "destructive": "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        "outline": "text-foreground"
+      }
+    }
+  },
+  "motion": {
+    "transitions": "transition-all duration-200 ease-in-out",
+    "hover_effects": "hover:shadow-md hover:border-zinc-300",
+    "micro_interactions": {
+      "button_click": "active:scale-[0.98]",
+      "input_focus": "focus:ring-2 focus:ring-blue-500/20"
+    }
+  },
+  "visual_enhancers": {
+    "shadows": "shadow-[0_1px_3px_0_rgb(0,0,0,0.1),0_1px_2px_-1px_rgb(0,0,0,0.1)]",
+    "borders": "border border-zinc-200",
+    "textures": "None. Keep surfaces clean for data legibility."
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: `npm install lucide-react date-fns xlsx file-saver`",
+    "Use `lucide-react` for icons (Wrench, Calendar, Trash2, Search, Download, Filter, Plus).",
+    "Implement the 'Log Entry Form' on the left (or top on mobile) and 'Logs Table' on the right (or bottom).",
+    "The 'Logs Table' must support pagination if data exceeds 20 rows.",
+    "Add a 'Quick Stats' row at the top of the dashboard: Total Logs (Month), Pending Actions, Most Active Machine.",
+    "Ensure the Excel export function uses `xlsx` library and formats the date correctly.",
+    "Use 'Sonner' for toast notifications (e.g., 'Log added successfully').",
+    "Strictly follow the color palette. Do not use random colors.",
+    "Prioritize keyboard navigation for the form.",
+    "Date picker must be user-friendly (Shadcn Calendar in a Popover)."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for backgrounds.",
+    "Do not center-align the main dashboard container; use full width with max-width constraint.",
+    "Ensure high contrast for all text (WCAG AA compliance).",
+    "Use 'Barlow Condensed' for all headings and metrics.",
+    "Use 'IBM Plex Sans' for all data cells and inputs.",
+    "Inputs should have a clear focus state (Blue ring).",
+    "Destructive actions (Delete) must have a confirmation dialog."
+  ]
+}
