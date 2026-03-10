@@ -31,6 +31,26 @@ const Dashboard = () => {
     fetchConfig();
   }, [navigate]);
 
+  useEffect(() => {
+    const handleOnline = () => {
+      toast.success('Back online');
+      fetchLogs();
+      fetchConfig();
+    };
+    
+    const handleOffline = () => {
+      toast.error('No internet connection');
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   const fetchLogs = async () => {
     try {
       const response = await axios.get(`${API}/logs`, { headers: getAuthHeader() });

@@ -1,33 +1,41 @@
-const CACHE_NAME = 'maintenance-log-v1';
+const CACHE_NAME = 'maintenance-log-v2';
 const urlsToCache = [
   '/',
-  '/static/css/main.css',
-  '/static/js/main.js',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png'
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        return cache.addAll(urlsToCache);
-      })
-      .catch(() => {
-        // Silently fail if caching fails during install
+        return cache.addAll(urlsToCache).catch(() => {
+          console.log('Failed to cache some resources during install');
+        });
       })
   );
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.url.includes('/api/')) {
+    return;
+  }
+  
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then((response) => {
-        if (response) {
-          return response;
+        if (response && response.status === 200) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
         }
-        return fetch(event.request);
+        return response;
+      })
+      .catch(() => {
+        return caches.match(event.request);
       })
   );
 });
@@ -43,6 +51,8 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    }).then(() => {
+      return self.clients.claim();
     })
   );
 });
