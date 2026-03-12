@@ -62,6 +62,11 @@ class UserInfo(BaseModel):
     role: str
 
 
+class PasswordReset(BaseModel):
+    username: str
+    new_password: str
+
+
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
@@ -198,6 +203,29 @@ async def login(user_input: UserLogin):
 @api_router.get("/auth/me", response_model=UserInfo)
 async def get_me(current_user: dict = Depends(get_current_user)):
     return {"username": current_user["username"], "role": current_user["role"]}
+
+
+@api_router.get("/auth/users")
+async def list_users(current_user: dict = Depends(get_admin_user)):
+    users = await db.users.find({}, {"_id": 0, "password_hash": 0}).to_list(1000)
+    return users
+
+
+@api_router.post("/auth/reset-password")
+async def reset_password(reset_data: PasswordReset, current_user: dict = Depends(get_admin_user)):
+    user = await db.users.find_one({"username": reset_data.username}, {"_id": 0})
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    new_password_hash = hash_password(reset_data.new_password)
+    
+    await db.users.update_one(
+        {"username": reset_data.username},
+        {"$set": {"password_hash": new_password_hash}}
+    )
+    
+    return {"message": f"Password reset successfully for user: {reset_data.username}"}
 
 
 @api_router.post("/logs", response_model=MaintenanceLog)

@@ -115,14 +115,22 @@ const Login = () => {
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-6 text-center space-y-2">
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm text-blue-600 hover:underline block w-full"
               data-testid="toggle-auth-button"
             >
               {isLogin ? "Don't have an account? Register" : 'Already have an account? Sign In'}
             </button>
+            {isLogin && (
+              <button
+                onClick={() => navigate('/reset-password')}
+                className="text-sm text-zinc-600 hover:underline block w-full"
+              >
+                Forgot password? (Admin only)
+              </button>
+            )}
           </div>
         </CardContent>
       </Card>
