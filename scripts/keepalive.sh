@@ -3,7 +3,7 @@
 # Keep-alive script to prevent backend cold starts
 # This script pings the backend every 5 minutes
 
-BACKEND_URL="https://maint-report-gen.preview.emergentagent.com/api/health"
+BACKEND_URL="https://git-push-hub.preview.emergentagent.com/api/health"
 LOG_FILE="/tmp/keepalive.log"
 
 while true; do

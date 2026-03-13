@@ -5,7 +5,7 @@
 If you encounter a blank page when opening the app, follow these steps:
 
 ### Quick Fix
-1. Visit: https://maint-report-gen.preview.emergentagent.com/clear-cache.html
+1. Visit: https://git-push-hub.preview.emergentagent.com/clear-cache.html
 2. Click "Clear Cache & Reload"
 3. The app will reload automatically
 
