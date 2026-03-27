@@ -242,12 +242,24 @@ async def create_log(log_input: MaintenanceLogCreate, current_user: dict = Depen
 
 @api_router.get("/logs", response_model=List[MaintenanceLog])
 async def get_logs(current_user: dict = Depends(get_current_user)):
-    logs = await db.maintenance_logs.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    logs = await db.maintenance_logs.find({}, {"_id": 0}).to_list(1000)
     
     for log in logs:
         if isinstance(log['created_at'], str):
             log['created_at'] = datetime.fromisoformat(log['created_at'])
     
+    def get_date_value(log):
+        date_str = log.get('date', '')
+        clean = date_str.replace('st,', ',').replace('nd,', ',').replace('rd,', ',').replace('th,', ',')
+        try:
+            return datetime.strptime(clean, "%B %d, %Y")
+        except:
+            try:
+                return datetime.strptime(clean, "%b %d, %Y")
+            except:
+                return datetime.min
+    
+    logs.sort(key=get_date_value, reverse=True)
     return logs
 
 
