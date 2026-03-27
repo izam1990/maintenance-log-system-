@@ -151,6 +151,16 @@ class ConfigItemCreate(BaseModel):
     type: str
 
 
+def parse_log_date(date_str):
+    clean = date_str.replace('st,', ',').replace('nd,', ',').replace('rd,', ',').replace('th,', ',')
+    for fmt in ["%B %d, %Y", "%b %d, %Y", "%Y-%m-%d"]:
+        try:
+            return datetime.strptime(clean, fmt)
+        except ValueError:
+            continue
+    return datetime.min
+
+
 @api_router.get("/")
 async def root():
     return {"message": "Maintenance Log API", "status": "online"}
@@ -248,18 +258,8 @@ async def get_logs(current_user: dict = Depends(get_current_user)):
         if isinstance(log['created_at'], str):
             log['created_at'] = datetime.fromisoformat(log['created_at'])
     
-    def get_date_value(log):
-        date_str = log.get('date', '')
-        clean = date_str.replace('st,', ',').replace('nd,', ',').replace('rd,', ',').replace('th,', ',')
-        try:
-            return datetime.strptime(clean, "%B %d, %Y")
-        except:
-            try:
-                return datetime.strptime(clean, "%b %d, %Y")
-            except:
-                return datetime.min
+    logs.sort(key=lambda x: parse_log_date(x.get('date', '')), reverse=True)
     
-    logs.sort(key=get_date_value, reverse=True)
     return logs
 
 
@@ -352,34 +352,7 @@ app.add_middleware(
     allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
     allow_methods=["*"],
     allow_headers=["*"],
-)@api_router.get("/logs", response_model=List[MaintenanceLog])
-async def get_logs(current_user: dict = Depends(get_current_user)):
-    logs = await db.maintenance_logs.find({}, {"_id": 0}).to_list(1000)
-    
-    for log in logs:
-        if isinstance(log['created_at'], str):
-            log['created_at'] = datetime.fromisoformat(log['created_at'])
-    
-    # Sort by date field (newest first)
-    def parse_date(log):
-        try:
-            # Try parsing different date formats
-            date_str = log.get('date', '')
-            # Format: "Mar 14, 2026" or "March 14th, 2026"
-            for fmt in ["%b %d, %Y", "%B %d, %Y", "%B %dth, %Y", "%B %dst, %Y", "%B %dnd, %Y", "%B %drd, %Y"]:
-                try:
-                    # Remove ordinal suffixes (st, nd, rd, th)
-                    clean_date = date_str.replace('st,', ',').replace('nd,', ',').replace('rd,', ',').replace('th,', ',')
-                    return datetime.strptime(clean_date, fmt)
-                except:
-                    continue
-            return datetime.min
-        except:
-            return datetime.min
-    
-    logs.sort(key=parse_date, reverse=True)
-    
-    return logs
+)
 
 logging.basicConfig(
     level=logging.INFO,
