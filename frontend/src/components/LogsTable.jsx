@@ -1,4 +1,4 @@
-COPY ALL OF THIS CODE and paste it:
+PASTE THIS CODE:
 
 import { useState } from 'react';
 import { Edit2, Trash2, Search, X } from 'lucide-react';
@@ -32,8 +32,6 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
     setExpandedDescription(null);
   };
 
-  const TABLE_MAX_HEIGHT = 624;
-
   return (
     <>
       <Card className="bg-white border border-zinc-200 shadow-sm rounded-md" data-testid="logs-table-card">
@@ -43,7 +41,7 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
               Maintenance Logs
               {filteredLogs.length > 0 && (
                 <span className="ml-2 text-sm font-normal text-zinc-500">
-                  ({filteredLogs.length} {filteredLogs.length === 1 ? 'record' : 'records'})
+                  ({filteredLogs.length} records)
                 </span>
               )}
             </CardTitle>
@@ -61,25 +59,20 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="p-8 text-center text-zinc-500" data-testid="loading-message">
-              Loading logs...
-            </div>
+            <div className="p-8 text-center text-zinc-500">Loading logs...</div>
           ) : filteredLogs.length === 0 ? (
-            <div className="p-8 text-center text-zinc-500" data-testid="no-logs-message">
-              {searchTerm ? 'No logs found matching your search.' : 'No logs yet. Add your first maintenance log!'}
+            <div className="p-8 text-center text-zinc-500">
+              {searchTerm ? 'No logs found.' : 'No logs yet.'}
             </div>
           ) : (
-            <div 
-              className="overflow-auto"
-              style={{ maxHeight: `${TABLE_MAX_HEIGHT}px` }}
-            >
-              <table className="w-full text-sm text-left min-w-[900px]" data-testid="logs-table">
-                <thead className="bg-zinc-100 text-zinc-600 uppercase text-xs font-bold tracking-wider sticky top-0 z-10 shadow-sm">
+            <div className="overflow-auto" style={{ maxHeight: '600px' }}>
+              <table className="w-full text-sm text-left min-w-[900px]">
+                <thead className="bg-zinc-100 text-zinc-600 uppercase text-xs font-bold sticky top-0 z-10">
                   <tr>
                     <th className="py-3 px-4 bg-zinc-100">Date</th>
                     <th className="py-3 px-4 bg-zinc-100">Machine</th>
                     <th className="py-3 px-4 bg-zinc-100">Location</th>
-                    <th className="py-3 px-4 bg-zinc-100 min-w-[200px]">Work Description</th>
+                    <th className="py-3 px-4 bg-zinc-100">Work Description</th>
                     <th className="py-3 px-4 bg-zinc-100">Spare Parts</th>
                     <th className="py-3 px-4 bg-zinc-100">Total Time</th>
                     <th className="py-3 px-4 bg-zinc-100">Technician</th>
@@ -88,58 +81,28 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
                 </thead>
                 <tbody>
                   {filteredLogs.map((log) => (
-                    <tr
-                      key={log.id}
-                      className="border-b border-zinc-100 hover:bg-zinc-50/80 transition-colors"
-                      data-testid={`log-row-${log.id}`}
-                    >
-                      <td className="py-3 px-4 align-middle whitespace-nowrap" data-testid={`log-date-${log.id}`}>
+                    <tr key={log.id} className="border-b border-zinc-100 hover:bg-zinc-50">
+                      <td className="py-3 px-4 whitespace-nowrap">
                         {format(new Date(log.date), 'MMM dd, yyyy')}
                       </td>
-                      <td className="py-3 px-4 align-middle font-medium whitespace-nowrap" data-testid={`log-machine-${log.id}`}>
-                        {log.machine_name}
-                      </td>
-                      <td className="py-3 px-4 align-middle whitespace-nowrap" data-testid={`log-location-${log.id}`}>
-                        {log.location}
-                      </td>
+                      <td className="py-3 px-4 font-medium whitespace-nowrap">{log.machine_name}</td>
+                      <td className="py-3 px-4 whitespace-nowrap">{log.location}</td>
                       <td 
-                        className="py-3 px-4 align-middle max-w-[200px] cursor-pointer hover:bg-blue-50 rounded transition-colors" 
-                        data-testid={`log-description-${log.id}`}
+                        className="py-3 px-4 max-w-[200px] cursor-pointer hover:bg-blue-50"
                         onClick={() => handleDescriptionClick(log)}
-                        title="Click to view full description"
                       >
-                        <div className="truncate text-blue-600 underline decoration-dotted underline-offset-2">
-                          {log.work_description}
-                        </div>
+                        <div className="truncate text-blue-600 underline">{log.work_description}</div>
                       </td>
-                      <td className="py-3 px-4 align-middle whitespace-nowrap" data-testid={`log-spare-parts-${log.id}`}>
-                        {log.spare_parts}
-                      </td>
-                      <td className="py-3 px-4 align-middle whitespace-nowrap" data-testid={`log-total-time-${log.id}`}>
-                        {log.total_time}
-                      </td>
-                      <td className="py-3 px-4 align-middle whitespace-nowrap" data-testid={`log-technician-${log.id}`}>
-                        {log.technician_name}
-                      </td>
+                      <td className="py-3 px-4 whitespace-nowrap">{log.spare_parts}</td>
+                      <td className="py-3 px-4 whitespace-nowrap">{log.total_time}</td>
+                      <td className="py-3 px-4 whitespace-nowrap">{log.technician_name}</td>
                       {isAdmin && (
-                        <td className="py-3 px-4 align-middle">
+                        <td className="py-3 px-4">
                           <div className="flex items-center justify-center gap-2">
-                            <Button
-                              onClick={() => onEdit(log)}
-                              variant="ghost"
-                              size="sm"
-                              className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600"
-                              data-testid={`edit-log-button-${log.id}`}
-                            >
+                            <Button onClick={() => onEdit(log)} variant="ghost" size="sm" className="h-8 w-8 p-0">
                               <Edit2 className="w-4 h-4" />
                             </Button>
-                            <Button
-                              onClick={() => onDelete(log.id)}
-                              variant="ghost"
-                              size="sm"
-                              className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-600"
-                              data-testid={`delete-log-button-${log.id}`}
-                            >
+                            <Button onClick={() => onDelete(log.id)} variant="ghost" size="sm" className="h-8 w-8 p-0">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -155,29 +118,15 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
       </Card>
 
       {expandedDescription && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={closeDescriptionModal}
-          data-testid="description-modal-overlay"
-        >
-          <div 
-            className="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[80vh] overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-            data-testid="description-modal"
-          >
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeDescriptionModal}>
+          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between p-4 border-b bg-slate-900 text-white">
               <h3 className="font-semibold text-lg">Work Description</h3>
-              <Button
-                onClick={closeDescriptionModal}
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0 hover:bg-white/20 text-white"
-                data-testid="close-description-modal"
-              >
+              <Button onClick={closeDescriptionModal} variant="ghost" size="sm" className="h-8 w-8 p-0 text-white">
                 <X className="w-5 h-5" />
               </Button>
             </div>
-            <div className="p-4 space-y-3 overflow-y-auto max-h-[calc(80vh-60px)]">
+            <div className="p-4 space-y-3">
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div className="text-zinc-500">Date:</div>
                 <div className="font-medium">{format(new Date(expandedDescription.date), 'MMM dd, yyyy')}</div>
@@ -188,25 +137,19 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
                 <div className="text-zinc-500">Technician:</div>
                 <div className="font-medium">{expandedDescription.technician_name}</div>
               </div>
-              <hr className="my-3" />
+              <hr />
               <div>
                 <div className="text-zinc-500 text-sm mb-2">Full Description:</div>
-                <div className="bg-zinc-50 p-3 rounded-md text-zinc-800 whitespace-pre-wrap">
-                  {expandedDescription.work_description}
-                </div>
+                <div className="bg-zinc-50 p-3 rounded-md whitespace-pre-wrap">{expandedDescription.work_description}</div>
               </div>
-              {expandedDescription.spare_parts && (
-                <div>
-                  <div className="text-zinc-500 text-sm mb-1">Spare Parts Used:</div>
-                  <div className="font-medium">{expandedDescription.spare_parts}</div>
-                </div>
-              )}
-              {expandedDescription.total_time && (
-                <div>
-                  <div className="text-zinc-500 text-sm mb-1">Total Time:</div>
-                  <div className="font-medium">{expandedDescription.total_time}</div>
-                </div>
-              )}
+              <div>
+                <div className="text-zinc-500 text-sm mb-1">Spare Parts:</div>
+                <div className="font-medium">{expandedDescription.spare_parts}</div>
+              </div>
+              <div>
+                <div className="text-zinc-500 text-sm mb-1">Total Time:</div>
+                <div className="font-medium">{expandedDescription.total_time}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -216,3 +159,5 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
 };
 
 export default LogsTable;
+
+Mar 31, 12:07 AM
