@@ -39,7 +39,6 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
           </div>
         </div>
       </CardHeader>
-PART 2 - Copy this and paste AFTER Part 1:
       <CardContent className="p-0">
         {loading ? (
           <div className="p-8 text-center text-zinc-500">Loading logs...</div>
