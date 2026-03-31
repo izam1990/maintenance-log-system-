@@ -30,12 +30,7 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
           </CardTitle>
           <div className="relative w-full md:w-64">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400" />
-            <Input
-              placeholder="Search logs..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-10 bg-white border-zinc-300 rounded-sm"
-            />
+            <Input placeholder="Search logs..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-10 h-10 bg-white border-zinc-300 rounded-sm" />
           </div>
         </div>
       </CardHeader>
@@ -43,36 +38,34 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
         {loading ? (
           <div className="p-8 text-center text-zinc-500">Loading logs...</div>
         ) : filteredLogs.length === 0 ? (
-          <div className="p-8 text-center text-zinc-500">
-            {searchTerm ? 'No logs found.' : 'No logs yet.'}
-          </div>
+          <div className="p-8 text-center text-zinc-500">{searchTerm ? 'No logs found.' : 'No logs yet.'}</div>
         ) : (
           <div className="overflow-auto" style={{maxHeight: '600px'}}>
-            <table className="w-full text-sm text-left min-w-[900px]">
+            <table className="w-full text-sm text-left" style={{minWidth: '1400px'}}>
               <thead className="bg-zinc-100 text-zinc-600 uppercase text-xs font-bold sticky top-0">
                 <tr>
-                  <th className="py-3 px-4 bg-zinc-100">Date</th>
-                  <th className="py-3 px-4 bg-zinc-100">Machine</th>
-                  <th className="py-3 px-4 bg-zinc-100">Location</th>
-                  <th className="py-3 px-4 bg-zinc-100">Work Description</th>
-                  <th className="py-3 px-4 bg-zinc-100">Spare Parts</th>
-                  <th className="py-3 px-4 bg-zinc-100">Total Time</th>
-                  <th className="py-3 px-4 bg-zinc-100">Technician</th>
-                  {isAdmin && <th className="py-3 px-4 bg-zinc-100 text-center">Actions</th>}
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Date</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '120px'}}>Machine</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Location</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '500px'}}>Work Description</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '120px'}}>Spare Parts</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '80px'}}>Total Time</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Technician</th>
+                  {isAdmin && <th className="py-3 px-3 bg-zinc-100 text-center" style={{width: '80px'}}>Actions</th>}
                 </tr>
               </thead>
               <tbody>
                 {filteredLogs.map((log) => (
                   <tr key={log.id} className="border-b border-zinc-100 hover:bg-zinc-50">
-                    <td className="py-3 px-4 whitespace-nowrap">{format(new Date(log.date), 'MMM dd, yyyy')}</td>
-                    <td className="py-3 px-4 font-medium whitespace-nowrap">{log.machine_name}</td>
-                    <td className="py-3 px-4 whitespace-nowrap">{log.location}</td>
-                    <td className="py-3 px-4" style={{minWidth: '500px', maxWidth: '600px', wordWrap: 'break-word'}}>{log.work_description}</td>
-                    <td className="py-3 px-4 whitespace-nowrap">{log.spare_parts}</td>
-                    <td className="py-3 px-4 whitespace-nowrap">{log.total_time}</td>
-                    <td className="py-3 px-4 whitespace-nowrap">{log.technician_name}</td>
+                    <td className="py-3 px-3">{format(new Date(log.date), 'MMM dd, yyyy')}</td>
+                    <td className="py-3 px-3 font-medium">{log.machine_name}</td>
+                    <td className="py-3 px-3">{log.location}</td>
+                    <td className="py-3 px-3">{log.work_description}</td>
+                    <td className="py-3 px-3">{log.spare_parts}</td>
+                    <td className="py-3 px-3">{log.total_time}</td>
+                    <td className="py-3 px-3">{log.technician_name}</td>
                     {isAdmin && (
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-3">
                         <div className="flex items-center justify-center gap-2">
                           <Button onClick={() => onEdit(log)} variant="ghost" size="sm" className="h-8 w-8 p-0"><Edit2 className="w-4 h-4" /></Button>
                           <Button onClick={() => onDelete(log.id)} variant="ghost" size="sm" className="h-8 w-8 p-0"><Trash2 className="w-4 h-4" /></Button>
