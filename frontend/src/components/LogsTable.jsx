@@ -92,4 +92,3 @@ PART 2 - Copy this and paste AFTER Part 1:
 };
 
 export default LogsTable;
-Paste this AFTER Part 1, then click "Commit changes"
