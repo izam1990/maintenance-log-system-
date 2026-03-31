@@ -67,7 +67,7 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
                     <td className="py-3 px-4 whitespace-nowrap">{format(new Date(log.date), 'MMM dd, yyyy')}</td>
                     <td className="py-3 px-4 font-medium whitespace-nowrap">{log.machine_name}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{log.location}</td>
-                    <td className="py-3 px-4" style={{maxWidth: '250px', wordWrap: 'break-word'}}>{log.work_description}</td>
+                    <td className="py-3 px-4" style={{maxWidth: '400px', wordWrap: 'break-word'}}>{log.work_description}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{log.spare_parts}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{log.total_time}</td>
                     <td className="py-3 px-4 whitespace-nowrap">{log.technician_name}</td>
