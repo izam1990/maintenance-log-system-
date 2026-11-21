@@ -41,17 +41,17 @@ const LogsTable = ({ logs, onEdit, onDelete, loading, isAdmin }) => {
           <div className="p-8 text-center text-zinc-500">{searchTerm ? 'No logs found.' : 'No logs yet.'}</div>
         ) : (
           <div className="overflow-auto" style={{maxHeight: '600px'}}>
-            <table className="w-full text-sm text-left" style={{minWidth: '1400px'}}>
+            <table className="w-full text-sm text-left" style={{minWidth: '920px'}}>
               <thead className="bg-zinc-100 text-zinc-600 uppercase text-xs font-bold sticky top-0">
                 <tr>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Date</th>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '120px'}}>Machine</th>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Location</th>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '500px'}}>Work Description</th>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '120px'}}>Spare Parts</th>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '80px'}}>Total Time</th>
-                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Technician</th>
-                  {isAdmin && <th className="py-3 px-3 bg-zinc-100 text-center" style={{width: '80px'}}>Actions</th>}
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '90px'}}>Date</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '110px'}}>Machine</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '90px'}}>Location</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '300px'}}>Work Description</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '100px'}}>Spare Parts</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '70px'}}>Total Time</th>
+                  <th className="py-3 px-3 bg-zinc-100" style={{width: '90px'}}>Technician</th>
+                  {isAdmin && <th className="py-3 px-3 bg-zinc-100 text-center" style={{width: '70px'}}>Actions</th>}
                 </tr>
               </thead>
               <tbody>
