@@ -252,7 +252,7 @@ async def create_log(log_input: MaintenanceLogCreate, current_user: dict = Depen
 
 @api_router.get("/logs", response_model=List[MaintenanceLog])
 async def get_logs(current_user: dict = Depends(get_current_user)):
-    logs = await db.maintenance_logs.find({}, {"_id": 0}).to_list(1000)
+    logs = await db.maintenance_logs.find({}, {"_id": 0}).to_list(None)
     
     for log in logs:
         if isinstance(log['created_at'], str):
